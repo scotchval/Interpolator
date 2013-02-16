@@ -1,22 +1,46 @@
 package interpolation;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class LagrangeInterpolation extends Interpolation {
+/**
+ * Represents a Lagrange interpolation. That is a hermite interpolation that only uses the function
+ * values (no derivatives)
+ * 
+ * @author Scott Valentine
+ * 
+ */
+public class LagrangeInterpolation extends HermiteInterpolation {
 
-    protected LagrangeInterpolation (DataFunction data) {
-        super(data);
-        // TODO Auto-generated constructor stub
+    /**
+     * truncates data to only points (throws out derivatives)
+     * and creates new HermiteInterpolation based on this
+     * 
+     * @param data - data used for interpolation
+     */
+    public LagrangeInterpolation (DataFunction data) {
+        super(truncateData(data));
     }
 
-    // nb: map needs some order, does not matter just for when using recursion
+    /**
+     * truncates the DataFunction so that it only includes points, (no derivative values)
+     * 
+     * @param data - original data, not truncated
+     * @return - data that consists only of points
+     */
+    private static DataFunction truncateData (DataFunction data) {
+        Map<Double, List<Double>> values = data.getValues();
+        Map<Double, List<Double>> result = new HashMap<Double, List<Double>>();
+        for (double d : values.keySet()) {
+            List<Double> novoList = new ArrayList<Double>();
+            novoList.add(values.get(d).get(0));
 
-    @Override
-    public double evaluate (double x) {
-        // TODO Auto-generated method stub
-        return 0;
+            result.put(d, novoList);
+        }
+        return new DataFunction(result);
     }
 
 }

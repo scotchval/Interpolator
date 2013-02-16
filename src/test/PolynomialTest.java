@@ -6,6 +6,11 @@ import java.util.List;
 import junit.framework.TestCase;
 import org.junit.Test;
 
+/**
+ * test for polynomial class
+ * @author Scott Valentine
+ *
+ */
 public class PolynomialTest extends TestCase{
 
     @Test
@@ -53,30 +58,32 @@ public class PolynomialTest extends TestCase{
     @Test
     public void testMultiply () {
         ArrayList<Double> x = new ArrayList<Double>();
-        x.add(1.0);
-        x.add(1.0);
+        x.add(4.0);
+        //x.add(1.0);
 
         Polynomial p1 = new Polynomial(x);
         
         ArrayList<Double> y = new ArrayList<Double>();
-        y.add(1.0);
+        y.add(-1.0);
         y.add(1.0);
         Polynomial p2 = new Polynomial(y);
 
 
         ArrayList<Double> fact = new ArrayList<Double>();
-        fact.add(1.0);
-        fact.add(2.0);
-        fact.add(1.0);
+        fact.add(-4.0);
+        fact.add(4.0);
+        //fact.add(1.0);
         Polynomial pReal = new Polynomial(fact);
         
-        Polynomial mult = p1.multiply(p2);
+        p1.multiply(p2);
         
-        assertEquals("Check degree", pReal.getDegree(), mult.getDegree());
+        assertEquals("Check degree", pReal.getDegree(), p1.getDegree());
 
-        for(int i = 0; i <= Math.min(mult.getDegree(), pReal.getDegree()); ++i){
-            assertEquals(pReal.getCoeffAt(i), mult.getCoeffAt(i), .00000000001);
+        for(int i = 0; i <= Math.min(p1.getDegree(), pReal.getDegree()); ++i){
+            assertEquals(pReal.getCoeffAt(i), p1.getCoeffAt(i), .00000000001);
         }
+        
+        
 
     }
     

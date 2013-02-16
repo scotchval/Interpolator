@@ -27,6 +27,14 @@ public class DataFunction {
     public DataFunction () {
         myVals = new TreeMap<Double, List<Double>>();
     }
+    
+    /**
+     * constructor that creates DataFunction from mapping of values
+     * @param values
+     */
+    public DataFunction (Map<Double, List<Double>> values) {
+        myVals = values;
+    }
 
     /**
      * loads this Data function from file

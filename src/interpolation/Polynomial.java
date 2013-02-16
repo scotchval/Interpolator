@@ -13,10 +13,15 @@ import java.util.List;
 public class Polynomial {
     List<Double> myCoefficients;
 
-   /**
-    * TODO
-    * @param coefficients
-    */
+    public Polynomial () {
+        myCoefficients = new ArrayList<Double>();
+    }
+
+    /**
+     * TODO
+     * 
+     * @param coefficients
+     */
     public Polynomial (List<Double> coefficients) {
         myCoefficients = coefficients;
     }
@@ -42,7 +47,24 @@ public class Polynomial {
     }
 
     /**
+     * adds a constant to this polynomial
+     * 
+     * @param constant - constant to be added to this polynomial
+     */
+    public void add (Double constant) {
+        if (myCoefficients.size() == 0) {
+            myCoefficients.add(constant);
+        }
+        else {
+            double value = myCoefficients.get(0) + constant;
+            myCoefficients.set(0, value);
+        }
+
+    }
+
+    /**
      * returns the coefficient that corresponds to the ith degree term in this
+     * 
      * @param i - degree of term to get coefficient
      * @return - the ith coeffieicnt of this polynomial
      */
@@ -70,11 +92,9 @@ public class Polynomial {
     /**
      * multiplies two given polynomials and returns new polynomial equal to their product
      * 
-     * @param p1 - polynomial to be multiplied
      * @param p2 polynomial to be multiplied
-     * @return product of p1 and p2
      */
-    public Polynomial multiply ( Polynomial p2) {
+    public void multiply (Polynomial p2) {
         List<Double> result = createSkeletonOfDegree(this.getDegree(), p2.getDegree());
 
         for (int i = 0; i <= this.getDegree(); ++i) {
@@ -82,22 +102,23 @@ public class Polynomial {
                 result.set(i + j, this.getCoeffAt(i) * p2.getCoeffAt(j) + result.get(i + j));
             }
         }
-        return new Polynomial(result);
+        myCoefficients = result;
     }
 
     /**
      * multiplies the given polynomial by a constant
+     * 
      * @param p1 - polynomial to be multiplied
      * @param constant - constant factor to multiply by
      * @return - polynomaial with constant multiplied through
      */
-    public Polynomial multiply(double constant) {
+    public void multiply (double constant) {
         List<Double> temp = new ArrayList<Double>();
         temp.add(constant);
         Polynomial constantP = new Polynomial(temp);
-        return this.multiply(constantP);
+        this.multiply(constantP);
     }
-    
+
     /**
      * TODO
      * creates a list that represents a polynomial with 0 for all coefficients
@@ -108,7 +129,8 @@ public class Polynomial {
      */
     private List<Double> createSkeletonOfDegree (int degree1, int degree2) {
         List<Double> skeleton = new ArrayList<Double>();
-        if (degree1 <= 0 || degree2 <= 0) { return skeleton; }
+        
+        if (degree1 < 0 || degree2 < 0) { return skeleton; }
         int totalDegree = degree1 + degree2;
         for (int i = 0; i <= totalDegree; ++i) {
             skeleton.add(0.0);
@@ -164,38 +186,39 @@ public class Polynomial {
         }
         return value;
     }
-    
+
     /**
      * changes this polynomial to its derivative
      * 
      */
     public void derivate () {
         int size = myCoefficients.size();
-        for(int i = 1; i < size; ++i){
-            myCoefficients.set(i-1, myCoefficients.get(i)*i);
+        for (int i = 1; i < size; ++i) {
+            myCoefficients.set(i - 1, myCoefficients.get(i) * i);
         }
-        myCoefficients.remove(size-1);
+        myCoefficients.remove(size - 1);
     }
-    
+
     /**
      * changes this polynomial to its antiderivative
      * use the default value of 0 for the integration constant
      */
     public void antiderivative () {
-        antiderivative (0.0);
+        antiderivative(0.0);
     }
-    
+
     /**
      * changes this polynomial to its antiderivative
+     * 
      * @param contstant - constant value for antiderivative
      */
     public void antiderivative (double constant) {
-        //do last index first since it requires adding a term to the list
+        // do last index first since it requires adding a term to the list
         int size = myCoefficients.size();
-        double last  = myCoefficients.get(size-1)/ (size);
-        
-        for(int i = myCoefficients.size()-2; i >= 0; --i){
-            myCoefficients.set(i+1, myCoefficients.get(i)/(i+1));
+        double last = myCoefficients.get(size - 1) / (size);
+
+        for (int i = myCoefficients.size() - 2; i >= 0; --i) {
+            myCoefficients.set(i + 1, myCoefficients.get(i) / (i + 1));
         }
         myCoefficients.set(0, constant);
         myCoefficients.add(last);

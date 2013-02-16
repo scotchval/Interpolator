@@ -10,6 +10,9 @@ import interpolation.LagrangeInterpolation;
  * and prints out the coefficients according to Newton's tabular method
  * @author Scotch
  *
+ *
+ * TODO: THERE IS NOTHING TO SEE HERE. THIS IS REMNANT OF SOMETHING ELSE
+ *
  */
 public class NewtonTabular {
 
@@ -59,7 +62,7 @@ public class NewtonTabular {
         firstRow.add(-4.0);
         firstRow.add(44.0);
         
-        HermiteInterpolation.printCoeffs(firstRow, xVals, map);
+        //HermiteInterpolation.printCoeffs(firstRow, xVals, map);
 
         
     }

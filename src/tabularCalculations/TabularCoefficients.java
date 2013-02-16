@@ -1,25 +1,27 @@
-package interpolation;
+package tabularCalculations;
 
+import interpolation.Polynomial;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 /**
- *  Calculates the tabular coefficients to be used in interpolating polynomial
- *  
+ * Calculates the tabular coefficients to be used in interpolating polynomial
+ * 
  * @author Scott Valentine
- *
+ * 
  */
 public class TabularCoefficients {
 
-    /** makes and calulates the values of the row of the tabular method*/
-    RowCalculator myRowMaker;
-    
-    /** list of the coefficients resulting from the tabular method*/
-    List<Double> myCoefficients;
-    
-    /** List of x values used in tabular method calculation*/
-    List<Double> myXVals; 
+    /** makes and calulates the values of the row of the tabular method */
+    private TabularRowCalculator myRowMaker;
+
+    /** list of the coefficients resulting from the tabular method */
+    private List<Double> myCoefficients;
+
+    /** List of x values used in tabular method calculation */
+    private List<Double> myXVals;
 
     /**
      * constructor set up for tabular method
@@ -30,7 +32,7 @@ public class TabularCoefficients {
     public TabularCoefficients (Map<Double, List<Double>> dervs) {
         myCoefficients = new ArrayList<Double>();
         myXVals = makeXValues(dervs);
-        myRowMaker = new RowCalculator(myXVals, dervs);
+        myRowMaker = new TabularRowCalculator(myXVals, dervs);
         calculatedCoefficients();
     }
 
@@ -72,6 +74,31 @@ public class TabularCoefficients {
             }
         }
         return result;
+    }
+
+    /**
+     * gives the calculated coefficients for interpolation
+     * 
+     * @return the tabular coefficients for newton interpolation
+     */
+    public List<Double> tabularCoefficients () {
+        return myCoefficients;
+    }
+
+    /**
+     * converts myCoefficients into the standard polynomial form using nested multiplication
+     * http://en.wikipedia.org/wiki/Horner's_method
+     * 
+     * i.e. instead of a0 + a1 (x-c1) + a2(x-c1)(x-c2) + ...
+     * we have
+     * d0 + d1*x + d2*x^2 + ....
+     * 
+     * @return the correct polynomial
+     */
+    public Polynomial convertToPolynomialCoefficients () {
+        TabularToPolynomialConverter tabToPoly = new TabularToPolynomialConverter(myXVals, myCoefficients);
+        Polynomial p = tabToPoly.convert();
+        return p;
     }
 
 }

@@ -1,4 +1,4 @@
-package interpolation;
+package tabularCalculations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.Map;
  * @author Scott Valentine
  * 
  */
-public class RowCalculator {
+public class TabularRowCalculator {
 
     /** the base row of x values for the tabular method */
     private List<Double> myXVals;
@@ -24,7 +24,7 @@ public class RowCalculator {
      * @param xVals - list of x values the tabular method stared with
      * @param dervs - mapping of each unique x value to a list of its derivatives
      */
-    public RowCalculator (List<Double> xVals, Map<Double, List<Double>> dervs) {
+    public TabularRowCalculator (List<Double> xVals, Map<Double, List<Double>> dervs) {
         myDerivatives = dervs;
         myXVals = xVals;
     }
@@ -52,7 +52,7 @@ public class RowCalculator {
      * @return the next row in the tabular method
      */
     public List<Double> makeNewRow (List<Double> lastRow) {
-        int level = myXVals.size() - lastRow.size();
+        int level = myXVals.size() - lastRow.size()+1;
 
         List<Double> nextRow = new ArrayList<Double>();
 
