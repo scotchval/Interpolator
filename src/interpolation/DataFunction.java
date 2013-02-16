@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -91,7 +92,12 @@ public class DataFunction {
      * 
      * @return a set of xvals that represent the points
      */
-    public Collection<Double> getXVals () {
-        return myVals.keySet();
+    public List<Double> getXVals () {
+        List<Double> list = new ArrayList<Double>();
+        for(double d: myVals.keySet()){
+            list.add(myVals.get(d).get(0));
+        }
+        Collections.sort(list);
+        return list;
     }
 }
