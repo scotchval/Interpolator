@@ -1,6 +1,6 @@
 *.class
-.gitignore
-.settings/
+#.gitignore
+#.settings/
 
 # Package Files #
 *.jar
