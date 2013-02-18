@@ -8,6 +8,8 @@ import java.util.Map;
 
 /**
  * Calculates the tabular coefficients to be used in interpolating polynomial
+ * TODO: it might be a good idea to store the rows as a graph or tree so that data can be appended
+ * easily later
  * 
  * @author Scott Valentine
  * 
@@ -96,7 +98,8 @@ public class TabularCoefficients {
      * @return the correct polynomial
      */
     public Polynomial convertToPolynomialCoefficients () {
-        TabularToPolynomialConverter tabToPoly = new TabularToPolynomialConverter(myXVals, myCoefficients);
+        TabularToPolynomialConverter tabToPoly =
+                new TabularToPolynomialConverter(myXVals, myCoefficients);
         Polynomial p = tabToPoly.convert();
         return p;
     }
