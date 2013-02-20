@@ -13,7 +13,7 @@ import tabularCalculations.TabularCoefficients;
 public class HermiteInterpolation extends Interpolation{
 
     /** polynomial that currently is acting as the interpolation polynomial */
-    Polynomial myPolynomial;
+    private Polynomial myPolynomial;
     
     /**
      * creates a new interpolation from the data passed
@@ -39,6 +39,10 @@ public class HermiteInterpolation extends Interpolation{
     @Override
     public double evaluate (double x) {
         return myPolynomial.evaluate(x);
+    }
+    
+    public Polynomial getPolynomail() {
+        return myPolynomial;
     }
     
 }

@@ -1,3 +1,6 @@
+import interpolation.DataFunction;
+import interpolation.HermiteInterpolation;
+import interpolation.Interpolation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +48,12 @@ public class Main {
         dervs.put(2.0, l3);
         dervs.put(3.0, l4);
 
+        DataFunction data = new DataFunction(dervs);
+        
+        HermiteInterpolation herm = new HermiteInterpolation(data);
+        
+        System.out.println(herm.getPolynomail().toString());
+        
         TabularCoefficients tb = new TabularCoefficients(dervs);
         List<Double> ans = tb.tabularCoefficients();
 
